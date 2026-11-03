@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#101820">
+  <title>AQBATTLE - Battle Royale</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="top-header">
+    <h1>AQ<span>BATTLE</span></h1>
+    <p>MADE BY BELLO QUADRI AYOMIDE</p>
+  </header>
+
+  <!-- LOGIN SCREEN -->
+  <section id="authScreen" class="screen">
+    <div class="panel">
+      <h2>WELCOME TO AQBATTLE</h2>
+      <p>Enter the battlefield.</p>
+
+      <div class="auth-tabs">
+        <button id="loginTab">LOGIN</button>
+        <button id="registerTab">REGISTER</button>
+      </div>
+
+      <form id="authForm">
+        <div id="usernameGroup" hidden>
+          <input id="username" placeholder="Username">
+        </div>
+
+        <input id="email" type="email" placeholder="Email address" required>
+        <input id="password" type="password" placeholder="Password" required>
+
+        <button id="authSubmit" type="submit">LOGIN</button>
+        <p id="authMessage"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- LOBBY -->
+  <section id="lobby" class="screen" hidden>
+
+    <div class="lobby-top">
+      <h2>WELCOME, <span id="playerName">PLAYER</span></h2>
+      <div>
+        🪙 <span id="coinBalance">0</span>
+        💎 <span id="diamondBalance">0</span>
+        <button id="logout">LOGOUT</button>
+      </div>
+    </div>
+
+    <div class="panel character-panel">
+      <h2>CHARACTER</h2>
+      <div id="characterPreview"></div>
+      <button id="maleCharacter">MALE</button>
+      <button id="femaleCharacter">FEMALE</button>
+    </div>
+
+    <div class="panel">
+      <h2>GAME MODES</h2>
+      <div class="mode-buttons">
+        <button id="soloMode">SOLO</button>
+        <button id="duoMode">DUO</button>
+        <button id="squadMode">SQUAD</button>
+      </div>
+      <input id="selectedMode" type="hidden" value="solo">
+      <button id="startMatch">START BATTLE</button>
+      <p id="matchMessage"></p>
+    </div>
+
+    <div class="panel">
+      <h2>SHOP</h2>
+      <button id="shopOpen">CHARACTER SHOP</button>
+      <button id="shopOpen2">WEAPON SHOP</button>
+      <div id="shop" hidden>
+        <button id="shopClose">CLOSE</button>
+        <div id="shopItems"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="friendsPanel">
+      <h2>FRIENDS</h2>
+      <input id="friendSearchInput" placeholder="Search username">
+      <button id="friendSearchButton">SEARCH</button>
+      <p id="friendMessage"></p>
+      <div id="friendSearchResults"></div>
+
+      <h3>Friend requests</h3>
+      <div id="friendRequestsList"></div>
+
+      <h3>My friends</h3>
+      <p>Online: <span id="onlineFriendsCount">0</span></p>
+      <div id="friendsList"></div>
+
+      <button id="createPrivateRoomButton">CREATE PRIVATE ROOM</button>
+
+      <div id="privateRoomPanel" hidden>
+        <p>Room: <span id="privateRoomCode"></span></p>
+        <div id="privateRoomPlayers"></div>
+        <button id="inviteFriendsButton">INVITE FRIENDS</button>
+        <button id="startPrivateMatchButton">START MATCH</button>
+        <button id="leavePrivateRoomButton">LEAVE ROOM</button>
+      </div>
+
+      <div id="friendInvitation" hidden>
+        <p id="invitationMessage"></p>
+        <button id="acceptInvitation">ACCEPT</button>
+        <button id="declineInvitation">DECLINE</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BATTLE ARENA -->
+  <section id="arena" class="arena-screen" hidden>
+
+    <div id="gameCanvas"></div>
+
+    <!-- TOP BATTLE INFORMATION -->
+    <div class="arena-top">
+      <div>❤️ <span id="healthText">100</span></div>
+      <div>ALIVE: <span id="aliveCount">1</span></div>
+      <div>TIME: <span id="matchTimer">00:00</span></div>
+      <div>KILLS: <span id="killCount">0</span></div>
+      <button id="leaveArena">EXIT</button>
+    </div>
+
+    <!-- HEALTH BAR -->
+    <div class="health-container">
+      <div id="healthFill"></div>
+    </div>
+
+    <!-- MAP -->
+    <canvas id="miniMap" width="200" height="200"></canvas>
+
+    <!-- CROSSHAIR -->
+    <div id="crosshair">+</div>
+
+    <!-- WEAPON INFORMATION -->
+    <div class="weapon-hud">
+      <span id="weaponName">RIFLE</span>
+      <span id="ammoCount">30 / 90</span>
+    </div>
+
+    <div id="battleMessage"></div>
+
+    <!-- HUD EDITOR -->
+    <button id="hudEditorButton" type="button">⚙️ HUD</button>
+
+    <div id="hudEditorPanel" hidden>
+      <h3>CUSTOMIZE HUD</h3>
+      <p id="hudSelectedLabel">Select a control</p>
+      <button id="hudSizeDown">SMALLER</button>
+      <button id="hudSizeUp">BIGGER</button>
+      <button id="hudSaveButton">SAVE</button>
+      <button id="hudResetButton">RESET</button>
+      <button id="hudCloseButton">CLOSE</button>
+    </div>
+
+    <!-- BACKPACK -->
+    <div id="inventoryPanel" hidden>
+      <h3>BACKPACK</h3>
+      <p>Inventory</p>
+      <p>Medkits: 0</p>
+      <p>Grenades: 0</p>
+      <button id="inventoryClose">CLOSE</button>
+    </div>
+
+    <!-- MOVEMENT JOYSTICK -->
+    <div id="joystick">
+      <div id="joystickKnob"></div>
+    </div>
+
+    <!-- BATTLE CONTROLS -->
+    <div class="mobile-controls">
+
+      <button id="aimButton" class="control-button">🎯 AIM</button>
+      <button id="jumpButton" class="control-button">⬆ JUMP</button>
+      <button id="reloadButton" class="control-button">🔄 RELOAD</button>
+      <button id="crouchButton" class="control-button">🧎 CROUCH</button>
+      <button id="fireButton" class="control-button fire-button">🔥 FIRE</button>
+      <button id="proneButton" class="control-button">⬇ PRONE</button>
+      <button id="sprintButton" class="control-button">🏃 SPRINT</button>
+      <button id="backpackButton" class="control-button">🎒 BAG</button>
+      <button id="switchWeaponButton" class="control-button">🔫 SWITCH</button>
+
+    </div>
+
+  </section>
+
+  <footer>
+    <p>AQBATTLE © 2026</p>
+    <p>MADE BY BELLO QUADRI AYOMIDE</p>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="game.js"></script>
+
+</body>
+</html>
